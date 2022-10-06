@@ -2,23 +2,23 @@ package dev.martin.dtos;
 
 public class NamedDocument {
 
-    String id;
+    String docId;
     String content;
 
     public NamedDocument() {
     }
 
-    public NamedDocument(String id, String content) {
-        this.id = id;
+    public NamedDocument(String docId, String content) {
+        this.docId = docId;
         this.content = content;
     }
 
-    public String getId() {
-        return id;
+    public String getDocId() {
+        return docId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setDocId(String docId) {
+        this.docId = docId;
     }
 
     public String getContent() {
@@ -32,7 +32,7 @@ public class NamedDocument {
     @Override
     public String toString() {
         return "NamedDocument{" +
-                "id='" + id + '\'' +
+                "id='" + docId + '\'' +
                 ", content='" + content + '\'' +
                 '}';
     }
