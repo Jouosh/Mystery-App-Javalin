@@ -7,8 +7,11 @@ import dev.martin.dtos.NamedDocument;
 import io.javalin.Javalin;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class App {
@@ -114,6 +117,20 @@ public class App {
             NamedDocument namedDocument = new NamedDocument(uuid.toString(), document);
             String outJson = gson.toJson(namedDocument);
             ctx.status(201);
+            ctx.result(outJson);
+        });
+
+        app.get("/documents/{docId}", ctx -> {
+            //get the document name from the path and use it to get file contents
+            String documentId = ctx.pathParam("docId");
+            String documentContent;
+            documentContent = new String(Files.readAllBytes(Paths.get(documentId + ".txt")));
+
+            //Set up response and return
+            Gson gson = new Gson();
+            NamedDocument namedDocument = new NamedDocument(documentId, documentContent);
+            String outJson = gson.toJson(namedDocument);
+            ctx.status(200);
             ctx.result(outJson);
         });
 
