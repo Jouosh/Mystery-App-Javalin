@@ -97,6 +97,23 @@ public class App {
             ctx.result(outJson);
         });
 
+        app.post("/notes/{index}", ctx -> {
+            //Get index from path and note from body
+            int index = Integer.parseInt(ctx.pathParam("index"));
+            Gson gson = new Gson();
+            Properties noteData = gson.fromJson(ctx.body(), Properties.class);
+            String note = noteData.getProperty("content");
+
+            //Add note to array at index, create indexed note and turn to json
+            notes.add(index, note);
+            IndexedNote indexedNote = new IndexedNote(index, note);
+            String outJson = gson.toJson(indexedNote);
+
+            //Set up response and return
+            ctx.status(201);
+            ctx.result(outJson);
+        });
+
         //Document Routes
         app.post("/documents", ctx -> {
             //Get document contents from request body
