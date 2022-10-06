@@ -7,7 +7,6 @@ import dev.martin.dtos.NamedDocument;
 import io.javalin.Javalin;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.math.BigInteger;
 import java.nio.file.Files;
@@ -16,7 +15,7 @@ import java.util.*;
 
 public class App {
 
-    static List<String> notes = new ArrayList();
+    static List<String> notes = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -107,7 +106,7 @@ public class App {
 
             //Set up file and write document content to it
             UUID uuid = UUID.randomUUID();
-            File documentFile = new File(uuid.toString() + ".txt");
+            File documentFile = new File(uuid + ".txt");
             documentFile.createNewFile();
             FileWriter documentWriter = new FileWriter(documentFile.getName());
             documentWriter.write(document);
@@ -137,9 +136,9 @@ public class App {
         //Math Routes
         app.get("/math/{num1}/{num2}/{amount}", ctx -> {
             //Get all path params
-            long num1 = Long.valueOf(ctx.pathParam("num1"));
-            long num2 = Long.valueOf(ctx.pathParam("num2"));
-            long amount = Long.valueOf(ctx.pathParam("amount"));
+            long num1 = Long.parseLong(ctx.pathParam("num1"));
+            long num2 = Long.parseLong(ctx.pathParam("num2"));
+            long amount = Long.parseLong(ctx.pathParam("amount"));
 
             //Do our operation amount times
             for (long i = 0; i < amount; i++) {
@@ -171,8 +170,8 @@ public class App {
 
         app.get("/coordinates/{amount}", ctx -> {
             //get variable from path, and set up coordinate list
-            long amount = Long.valueOf(ctx.pathParam("amount"));
-            List<Coordinate> coordinates = new ArrayList();
+            long amount = Long.parseLong(ctx.pathParam("amount"));
+            List<Coordinate> coordinates = new ArrayList<>();
 
             //Logic of making coordinates
             for (long i = 0; i < amount; i++) {
